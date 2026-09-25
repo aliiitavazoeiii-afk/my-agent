@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import base64
 import json
 import os
 import re
@@ -248,9 +249,12 @@ def git_output(cwd: Path, args: list[str], env: dict[str, str] | None = None, ti
 
 
 def controller_git_env(token: str) -> dict[str, str]:
+    """Git auth exists only in the controller subprocess environment, never in model shell env."""
     env = sanitize_shell_env()
-    env["MY_AGENT_GH_TOKEN"] = token
-    env["GIT_ASKPASS"] = str(ROOT / "scripts" / "git-askpass.sh")
+    basic = base64.b64encode(f"x-access-token:{token}".encode()).decode()
+    env["GIT_CONFIG_COUNT"] = "1"
+    env["GIT_CONFIG_KEY_0"] = "http.extraHeader"
+    env["GIT_CONFIG_VALUE_0"] = f"Authorization: Basic {basic}"
     env["GIT_TERMINAL_PROMPT"] = "0"
     return env
 
