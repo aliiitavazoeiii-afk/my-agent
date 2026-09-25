@@ -1,0 +1,27 @@
+poll_interval_seconds: 20
+authorized_github_users:
+  - aliiitavazoeiii-afk
+control_repo: aliiitavazoeiii-afk/my-agent
+
+allowed_roots:
+  - /opt
+  - /srv/my-agent/workspaces
+  - /etc/caddy/my-agent-sites
+
+executor:
+  model: gpt-6-luna
+  reasoning_effort: medium
+  max_turns: 40
+  escalation_model: gpt-6-sol
+  escalation_reasoning_effort: medium
+  escalation_max_turns: 30
+
+security:
+  allow_sudo_helpers:
+    - /usr/local/sbin/my-agent-caddy-reload
+  max_command_seconds: 180
+  max_output_chars: 24000
+
+telegram:
+  notify_on_success: true
+  notify_on_failure: true
