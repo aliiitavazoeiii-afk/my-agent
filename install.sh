@@ -48,7 +48,7 @@ echo "[2/9] Preparing directories..."
 mkdir -p "$CONFIG_DIR" "$WORKSPACE_DIR" /var/lib/my-agent
 chown -R "$AGENT_USER:$AGENT_GROUP" "$WORKSPACE_DIR" /var/lib/my-agent
 chown -R "$AGENT_USER:$AGENT_GROUP" "$INSTALL_DIR"
-chmod +x "$INSTALL_DIR/agent.py" "$INSTALL_DIR/scripts/git-askpass.sh" "$INSTALL_DIR/scripts/my-agent-caddy-reload"
+chmod +x "$INSTALL_DIR/agent.py" "$INSTALL_DIR/scripts/my-agent-caddy-reload"
 
 echo "[3/9] Python environment..."
 sudo -u "$AGENT_USER" python3 -m venv "$INSTALL_DIR/.venv"
