@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+set -euo pipefail
+CADDYFILE=/etc/caddy/Caddyfile
+if ! command -v caddy >/dev/null 2>&1; then
+  echo "caddy binary not found" >&2
+  exit 1
+fi
+caddy validate --config "$CADDYFILE"
+systemctl reload caddy
+echo "caddy reloaded"
